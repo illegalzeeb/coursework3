@@ -25,11 +25,12 @@
 
     <h3>Поиск постов</h3>
 
-    <form action="/search/" method="get">
-        <p>По вхождению слова</p>
-        <input type="text" name="s">
-        <input type="submit" value="Найти" class="button">
-    </form>
+    <div class="search">
+      <form action="/search/" method="get">
+      <input type="text" name="s">
+      <input type="submit" value="Найти" class="button">
+      </form>
+    </div>
 
     <hr>
 
@@ -52,7 +53,7 @@
         <div class="item__post-info">
           <div class="item__counter">
             <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
-            <span class="item__counter-text">212</span>
+            <span class="item__counter-text">{{ post.views_count }}</span>
           </div>
         </div>
         <div class="item__post-bottom">
