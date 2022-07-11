@@ -1,16 +1,17 @@
-# This is a sample Python script.
+import logging
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from flask import Flask, request, render_template, send_from_directory
+
+from views import main_blueprint
+
+POST_PATH = "posts.json"
+COMMENTS_PATH = "comments.json"
+BOOKMARKS_PATH = "bookmarks.json"
+
+app = Flask(__name__)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+app.register_blueprint(main_blueprint)
+logging.basicConfig(filename="basic.log", level=logging.INFO)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+app.run()
