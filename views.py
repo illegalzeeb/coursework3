@@ -1,7 +1,7 @@
 from json import JSONDecodeError
 
 from flask import Blueprint, render_template, request
-from utils import get_posts_all, search_for_posts, get_posts_by_user
+from utils import get_posts_all, search_for_posts, get_posts_by_user, get_post_by_pk, get_comments_by_post_id
 import textwrap
 
 main_blueprint = Blueprint('main_blueprint', __name__, template_folder='templates')
@@ -19,11 +19,11 @@ def main_page():
 @main_blueprint.route("/search/")
 def search_page():
     search_query = request.args.get('s', '')
-#    logging.info("Поиск")
+    logging.info("Поиск")
     try:
         posts = search_for_posts(search_query)
     except FileNotFoundError:
-#        logging.info('Файл не найден')
+        logging.info('Файл не найден')
         return "Файл не найден"
     except JSONDecodeError:
         return "Ошибка в файле JSON"
@@ -45,6 +45,19 @@ def user_feed():
         return "Файл не найден"
     except JSONDecodeError:
         return "Ошибка в файле JSON"
-    for post in posts:
-        post['content'] = textwrap.shorten(post['content'], width=30, placeholder='...')
     return render_template("user-feed.html", posts=posts)
+
+
+@main_blueprint.route("/post/")
+def single_post():
+    post_pk = request.args.get('p', '')
+    try:
+        posts = get_post_by_pk(post_pk)
+        comments = get_comments_by_post_id(post_pk)
+        comment_count = len(comments)
+    except FileNotFoundError:
+        logging.info('Файл не найден')
+        return "Файл не найден"
+    except JSONDecodeError:
+        return "Ошибка в файле JSON"
+    return render_template("post.html", posts=posts, comments=comments, comment_count=comment_count)

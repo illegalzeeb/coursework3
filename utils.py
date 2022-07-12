@@ -33,7 +33,7 @@ def get_post_by_pk(pk):
     Читает файл posts.json, если находит пост с заданным pk - возвращает пост как словарь
     """
     for post in get_posts_all():
-        if pk in post['pk']:
+        if str(pk) in str(post['pk']):
             return post
     raise ValueError("Такого поста не существует")
 
@@ -45,10 +45,10 @@ def get_comments_by_post_id(post_id) -> list[dict]:
     comments_found = []
     post_count = 0
     for post in get_posts_all():
-        if post_id in post['pk']:
+        if str(post_id) in str(post['pk']):
             post_count += 1
     for comment in get_comments_all():
-        if post_id in comment['post_id']:
+        if str(post_id) in str(comment['post_id']):
             comments_found.append(comment)
     if post_count == 0:
         raise ValueError("Такого поста не существует")
