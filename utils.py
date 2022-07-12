@@ -1,5 +1,6 @@
 import json
 
+
 def get_posts_all() -> list[dict]:
     """
     Читает файл posts.json, возвращает посты как список словарей
@@ -51,17 +52,17 @@ def get_comments_by_post_id(post_id) -> list[dict]:
             comments_found.append(comment)
     if post_count == 0:
         raise ValueError("Такого поста не существует")
-    return word_found
+    return comments_found
 
 
-def get_posts_by_user(user_name : str) -> list[dict]:
+def get_posts_by_user(poster_name : str) -> list[dict]:
     """
-    Читает файл posts.json, если находит пользователя в content - добавляет его в список словарей, затем возвращает как список словарей
+    Читает файл posts.json, если находит пользователя в poster_name - добавляет пост в список словарей, затем возвращает как список словарей
     """
     users_posts = []
     users_count = 0
     for post in get_posts_all():
-        if user_name.lower() in post['poster_name'].lower():
+        if poster_name.lower() in post['poster_name'].lower():
             users_count += 1
             users_posts.append(post)
     if users_count == 0:
