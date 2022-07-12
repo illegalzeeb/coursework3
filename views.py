@@ -1,3 +1,5 @@
+import json
+import logging
 from json import JSONDecodeError
 
 from flask import Blueprint, render_template, request
@@ -61,3 +63,18 @@ def single_post():
     except JSONDecodeError:
         return "Ошибка в файле JSON"
     return render_template("post.html", posts=posts, comments=comments, comment_count=comment_count)
+
+
+@main_blueprint.route("/api/posts/", methods = ['GET'])
+def api_all_posts():
+    posts = get_posts_all()
+    logging.info('Получение всех постов')
+    return json.dumps(posts)
+
+
+@main_blueprint.route("/api/posts/post_id", methods = ['GET'])
+def api_posts_by_id():
+    post_pk = request.args.get('p', '')
+    posts = get_post_by_pk(post_pk)
+    logging.info(f'Получение поста с id {post_pk}')
+    return json.dumps(posts)
