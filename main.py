@@ -23,4 +23,7 @@ def invalid_route(e):
 def internal_server_error():
     return jsonify({'errorCode' : 500, 'message' : 'Internal server error'})
 
+#if __name__ == "__main__":
+#	app.run()
+
 app.run()

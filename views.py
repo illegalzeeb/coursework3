@@ -2,7 +2,7 @@ import json
 import logging
 from json import JSONDecodeError
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, jsonify
 from utils import get_posts_all, search_for_posts, get_posts_by_user, get_post_by_pk, get_comments_by_post_id
 import textwrap
 
@@ -69,7 +69,8 @@ def single_post():
 def api_all_posts():
     posts = get_posts_all()
     logging.info('Получение всех постов')
-    return json.dumps(posts)
+#    return posts
+    return jsonify(posts)
 
 
 @main_blueprint.route("/api/posts/post_id", methods = ['GET'])
@@ -77,4 +78,4 @@ def api_posts_by_id():
     post_pk = request.args.get('p', '')
     posts = get_post_by_pk(post_pk)
     logging.info(f'Получение поста с id {post_pk}')
-    return json.dumps(posts)
+    return jsonify(posts)
