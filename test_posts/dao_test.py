@@ -1,3 +1,4 @@
+"""
 import pytest
 
 from post_dao import PostDAO
@@ -33,3 +34,4 @@ class TestPostsDAO:
         correct_pks = {1,2,3}
         pks = set([post.pk for post in posts])
         assert pks == correct_pks, "Не совпадают полученные id"
+"""

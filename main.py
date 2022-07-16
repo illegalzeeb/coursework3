@@ -14,16 +14,18 @@ app.config['DEBUG'] = True
 app.register_blueprint(main_blueprint)
 logging.basicConfig(filename="basic.log", level=logging.INFO)
 
+
 @app.errorhandler(404)
 def invalid_route(e):
-    return jsonify({'errorCode' : 404, 'message' : 'Route not found'})
+    return jsonify({'errorCode': 404, 'message': 'Route not found'})
 
 
 @app.errorhandler(500)
 def internal_server_error():
-    return jsonify({'errorCode' : 500, 'message' : 'Internal server error'})
+    return jsonify({'errorCode': 500, 'message': 'Internal server error'})
 
-#if __name__ == "__main__":
-#	app.run()
 
-app.run()
+if __name__ == "__main__":
+    app.run()
+
+#app.run()
